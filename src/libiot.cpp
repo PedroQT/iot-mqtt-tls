@@ -215,15 +215,6 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
     checkOTAUpdate(data.c_str());
     return;
   }
-
-  // Verifica si el mensaje contiene una alerta
-  if (data.indexOf("ALERT") >= 0) alert = data; // Si el mensaje contiene la palabra ALERT, se asigna a la variable alert
-  if (data.indexOf("encender_led") >= 0) {
-    digitalWrite(ledPin, HIGH);
-    Serial.println("LED ENCENDIDO");
-  } else {
-    digitalWrite(ledPin, LOW);
-    Serial.println("LED APAGADO");
-  }
+  
 }
 

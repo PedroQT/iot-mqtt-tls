@@ -28,16 +28,16 @@
 #include <libdisplay.h>
 #include <libota.h>
 
+#include "ledclient.h"
+
 SensorData data;  // Estructura para almacenar los datos de temperatura y humedad del SHT21
 time_t hora;      // Timestamp de la hora actual
-//--------------------------------------------------------------
-const int ledPin = 2;
+
 /**
  * Configura el dispositivo para conectarse a la red WiFi y ajusta parametros IoT
  */
 void setup() {
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW); // Apagar inicialmente
+  setupLedClient();
   Serial.begin(115200);     // Paso 1. Inicializa el puerto serie
   listWiFiNetworks();       // Paso 2. Lista las redes WiFi disponibles
   delay(1000);              // -- Espera 1 segundo para ver las redes disponibles
@@ -50,6 +50,7 @@ void setup() {
 
 // Función loop
 void loop() {
+  loopLedClient();
   checkWiFi();                                                   // Paso 1. Verifica la conexión a la red WiFi y si no está conectado, intenta reconectar
   checkMQTT();                                                   // Paso 2. Verifica la conexión al servidor MQTT y si no está conectado, intenta reconectar
   String message = checkAlert();                                 // Paso 3. Verifica si hay alertas y las retorna en caso de haberlas
