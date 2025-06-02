@@ -30,11 +30,14 @@
 
 SensorData data;  // Estructura para almacenar los datos de temperatura y humedad del SHT21
 time_t hora;      // Timestamp de la hora actual
-
+//--------------------------------------------------------------
+const int ledPin = 2;
 /**
  * Configura el dispositivo para conectarse a la red WiFi y ajusta parametros IoT
  */
 void setup() {
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW); // Apagar inicialmente
   Serial.begin(115200);     // Paso 1. Inicializa el puerto serie
   listWiFiNetworks();       // Paso 2. Lista las redes WiFi disponibles
   delay(1000);              // -- Espera 1 segundo para ver las redes disponibles
@@ -55,3 +58,4 @@ void loop() {
     sendSensorData(data.temperature, data.humidity);             // Paso 6. Envía los datos de temperatura y humedad al servidor MQTT
   }   
 }
+

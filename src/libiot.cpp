@@ -37,6 +37,8 @@
 #define PRINT(x)
 #endif
 
+extern const int ledPin;
+
 SHTSensor sht;     //Sensor SHT21
 String alert = ""; //Mensaje de alerta
 extern const char * client_id;  //ID del cliente MQTT
@@ -179,9 +181,13 @@ String checkAlert() {
  * Publica la temperatura y humedad dadas al tópico configurado usando el cliente MQTT.
  */
 void sendSensorData(float temperatura, float humedad) {
+   float FreCar = 78.5;   // DATO QUEMADO
+  float SatOxi = 1013.25; // DATO QUEMADO
   String data = "{";
   data += "\"temperatura\": "+ String(temperatura, 1) +", ";
-  data += "\"humedad\": "+ String(humedad, 1);
+  data += "\"humedad\": "+ String(humedad, 1) + ", ";
+  data += "\"frecuenciacardiaca\": " + String(FreCar, 1) + ", ";
+  data += "\"saturacionoxigeno\": " + String(SatOxi, 2);
   data += "}";
   char payload[data.length()+1];
   data.toCharArray(payload,data.length()+1);
@@ -209,7 +215,15 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
     checkOTAUpdate(data.c_str());
     return;
   }
-  
+
   // Verifica si el mensaje contiene una alerta
   if (data.indexOf("ALERT") >= 0) alert = data; // Si el mensaje contiene la palabra ALERT, se asigna a la variable alert
+  if (data.indexOf("encender_led") >= 0) {
+    digitalWrite(ledPin, HIGH);
+    Serial.println("LED ENCENDIDO");
+  } else {
+    digitalWrite(ledPin, LOW);
+    Serial.println("LED APAGADO");
+  }
 }
+

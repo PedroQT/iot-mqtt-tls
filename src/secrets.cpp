@@ -46,8 +46,8 @@
 
 // Variables de configuración de la red WiFi
 // Cambia estos valores por los de su red WiFi
-#define SSID "PEDRODQT"                     ///< Cambia por el nombre de tu red WiFi
-#define PASSWORD "PEDRO2002"                       ///< Cambia por la contraseña de tu red WiFi
+#define SSID "iPhonepedro"                     ///< Cambia por el nombre de tu red WiFi
+#define PASSWORD "pedro2002"                       ///< Cambia por la contraseña de tu red WiFi
 
 // Cambia al certificado del broker: Certificado raíz de Let's Encrypt (ISRG Root X1) en formato PEM
 const char* root_ca = \

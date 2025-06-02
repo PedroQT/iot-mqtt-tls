@@ -55,6 +55,8 @@ extern SHTSensor sht;               ///< Sensor SHT21
 typedef struct {
   float temperature;
   float humidity;
+  float FreCar;  // NUEVO DATO QUEMADO
+  float SatOxi;  // NUEVO DATO QUEMADO
 } SensorData;
 
 time_t setTime();                   ///< Función setTime que ajusta el tiempo del dispositivo con servidores SNTP
